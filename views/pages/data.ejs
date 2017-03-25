@@ -17,18 +17,22 @@
             <div id="contact">
 
                 <h1>Data page</h1>
-                <p>The datapage is currently in the works</p>
+                <p>Currently displaying all data from database</p>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Id</th>
                             <th>Temperature</th>
+                            <th>Date</th>
+                            <th>Time</th>
                         </tr>
                     </thead>
                     <% for(var i=0; i < information.length; i++) { %>
                         <tr>
                             <td><%= information[i].Id %></td>
                             <td><%= information[i].temp %></td>
+                            <td><%= information[i].date %></td>
+                            <td><%= information[i].time %></td>
                         </tr>
                     <% } %>
                 </table>                
