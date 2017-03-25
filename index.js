@@ -75,5 +75,5 @@ app.get('/pages/data', function(req, res){
 
 
 app.listen(3000, function(){
-    console.log("Listening on port 3000"); 
+    console.log("App listening on port 3000"); 
 }); 
