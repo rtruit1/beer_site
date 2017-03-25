@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
     host: 'localhost', 
     user: 'root', 
     password: '', 
-    database: 'sampledb'
+    database: 'beerTemps'
 });
 
 
@@ -55,14 +55,14 @@ app.post('/pages/myaction', function(req, res){
 
 //example of displaying all items from a database
 app.get('/pages/data', function(req, res){ 
-   connection.query("SELECT * FROM mySampleTable", function(err, rows, fields){
+   connection.query("SELECT * FROM temps", function(err, rows, fields){
        global.information = rows; 
         if(!!err){
             console.log("Error executing query"); 
         }
         else{
             console.log("The query waas executed properly");
-            console.log(rows[0].ID); 
+            console.log(rows[0].Id); 
             
         }
          res.render('pages/data'); 
