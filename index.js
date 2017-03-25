@@ -56,6 +56,8 @@ app.post('/pages/myaction', function(req, res){
 //example of displaying all items from a database
 app.get('/pages/data', function(req, res){ 
    connection.query("SELECT * FROM temps", function(err, rows, fields){
+       
+       //this may not be the best practice, but it gets the job done haha 
        global.information = rows; 
         if(!!err){
             console.log("Error executing query"); 
