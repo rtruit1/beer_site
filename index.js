@@ -29,24 +29,25 @@ connection.connect(function(err){
     }
 }); 
 
+//getting the index page
 app.get('/', function(req, res){
     res.render('pages/index'); 
 }); 
 
 app.post('/pages/myaction', function(req, res){
-    var name = req.body.name;
-    var email = req.body.email; 
+    var username = req.body.username;
+    var password = req.body.password; 
     
     var info = {
-        name: name, 
-        email: email
+        name: username, 
+        email: password
     };
     JSON.stringify(info); 
 
     
     res.render('pages/myaction', info);  
-    console.log("First Name: "+req.body.name); 
-    console.log("Email: "+req.body.email); 
+    console.log("First Name: "+req.body.username); 
+    //console.log("Email: "+req.body.password); 
 }); 
 
 
