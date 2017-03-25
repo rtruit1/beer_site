@@ -61,7 +61,7 @@ app.get('/pages/data', function(req, res){
             console.log("Error executing query"); 
         }
         else{
-            console.log("Sucessfully executed query");
+            console.log("The query was executed properly");
             console.log(rows[0].ID); 
             
         }
