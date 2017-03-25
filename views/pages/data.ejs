@@ -18,10 +18,20 @@
 
                 <h1>Data page</h1>
                 <p>The datapage is currently in the works</p>
-                <p><%= information[0].ID %></p>
-                
-                
-
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                        </tr>
+                    </thead>
+                    <% for(var i=0; i < information.length; i++) { %>
+                        <tr>
+                            <td><%= information[i].ID %></td>
+                            <td><%= information[i].Name %></td>
+                        </tr>
+                    <% } %>
+                </table>                
         </div>
     </main>
 

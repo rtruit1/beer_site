@@ -56,7 +56,7 @@ app.post('/pages/myaction', function(req, res){
 //example of displaying all items from a database
 app.get('/pages/data', function(req, res){ 
    connection.query("SELECT * FROM mySampleTable", function(err, rows, fields){
-       app.locals.information = rows; 
+       global.information = rows; 
         if(!!err){
             console.log("Error executing query"); 
         }
