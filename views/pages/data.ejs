@@ -4,6 +4,7 @@
     <% include ../partials/head%>
     <meta charset="utf-8" />
     <title>CSS3 Contact Form</title>
+    
 </head>
 
 <!--Load the AJAX API-->
@@ -17,45 +18,27 @@
 
     <main>
         <div class="jumbotron">
-            <div id="contact">
+            
 
-                <h1 style="text-align: center">Temperature Progression</h1>
-				<button id="change">Change View Window</button>
+                <h1 style="text-align: center">Beer Data</h1>
+                <h3>Current Temp: <%- information[information.length-1].temp %> Degrees</h3>
                 <div class="container">
-                    <div class="row">
-                        <div id="chart_div"></div>
+                    <div class="col-md-8">
+                        <button id="change" class="btn btn-default">Change View Window</button>
+                        <div id="chart_div" class="chart"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="chart_div2" class="chart" style="margin-top: 33px;"></div>
                     </div>
                 </div>
-
-
-                <h1>Data page</h1>
-                <p>Currently displaying all data from database</p>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Temperature</th>
-                        </tr>
-                    </thead>
-                    <% for(var i=0; i < information.length; i++) { %>
-                        <tr>
-                            <td><%= information[i].measurement_timestamp %></td>
-                            <td><%= information[i].temp %></td>
-                        </tr>
-                    <% } %>
-                </table>                
+                              
         </div>
+        
     </main>
 
     <footer>
         <% include ../partials/footer %>
     </footer>
-
-    
-</div>
-
-
-
 
 <script>
 function run(obj){
@@ -75,7 +58,6 @@ function run(obj){
       ]);
 
       var options = {
-        width: 900,
         height: 500,
         legend: {position: 'none'},
         enableInteractivity: false,
@@ -127,5 +109,46 @@ function run(obj){
 
 }
 </script>
+
+
+
+<!-- ============================================================================== -->
+<script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Oxygen', 3],
+          ['Carbon Dioxide', 1],
+          
+        ]);
+
+        // Set chart options
+        var options = {'title':'Oxygen to Co2 ratio',
+                       'width':300,
+                       'height':300, 
+                        legend:{
+                           position: 'none'
+                        }
+                      };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div2'));
+        chart.draw(data, options);
+      }
+    </script>
 </body>
 </html>
