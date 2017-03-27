@@ -34,6 +34,7 @@ app.get('/', function(req, res){
     res.render('pages/index'); 
 }); 
 
+
 app.post('/pages/myaction', function(req, res){
     var username = req.body.username;
     var password = req.body.password; 
@@ -83,6 +84,11 @@ app.get('/pages/data', function(req, res){
          res.render('pages/data'); 
    });  
 });
+
+
+
+
+
 
 
 app.listen(3000, function(){

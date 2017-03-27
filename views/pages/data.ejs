@@ -2,12 +2,15 @@
 <html>
 <head>
     <% include ../partials/head%>
-<meta charset="utf-8" />
-<title>CSS3 Contact Form</title>
+    <meta charset="utf-8" />
+    <title>CSS3 Contact Form</title>
 </head>
-<body>
-<body class="container">
 
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<body class="container" onload=run()>
+    
     <header>
         <% include ../partials/header %>
     </header>
@@ -15,6 +18,14 @@
     <main>
         <div class="jumbotron">
             <div id="contact">
+
+                <h1 style="text-align: center">Temperature Progression</h1>
+                <div class="container">
+                    <div class="row">
+                        <div id="chart_div"></div>
+                    </div>
+                </div>
+
 
                 <h1>Data page</h1>
                 <p>Currently displaying all data from database</p>
@@ -43,5 +54,43 @@
 
     
 </div>
+
+
+
+
+<script>
+function run(obj){
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawBasic);
+
+    function drawBasic() {
+        console.log("Hello");
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'X');
+        data.addColumn('number', 'T');
+
+        data.addRows([
+            [0, 0],   [1, 10]
+        ]);
+
+        data.addRows([
+            [80, 100]
+        ]);
+
+        var options = {
+            hAxis: {
+            title: 'Time'
+            },
+            vAxis: {
+            title: 'Temperature'
+            }
+         };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+    }
+}
+</script>
 </body>
 </html>
