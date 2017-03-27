@@ -20,6 +20,7 @@
             <div id="contact">
 
                 <h1 style="text-align: center">Temperature Progression</h1>
+				<button id="change">Change View Window</button>
                 <div class="container">
                     <div class="row">
                         <div id="chart_div"></div>
@@ -32,15 +33,13 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Time</th>
                             <th>Date</th>
                             <th>Temperature</th>
                         </tr>
                     </thead>
                     <% for(var i=0; i < information.length; i++) { %>
                         <tr>
-                            <td><%= information[i].time %></td>
-                            <td><%= information[i].date %></td>
+                            <td><%= information[i].measurement_timestamp %></td>
                             <td><%= information[i].temp %></td>
                         </tr>
                     <% } %>
@@ -60,36 +59,72 @@
 
 <script>
 function run(obj){
-    google.charts.load('current', {packages: ['corechart', 'line']});
-    google.charts.setOnLoadCallback(drawBasic);
+          google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
 
-    function drawBasic() {
-        console.log("Hello");
-        var data = new google.visualization.DataTable();
-        data.addColumn('number', 'X');
-        data.addColumn('number', 'T');
+    function drawChart() {
 
-        data.addRows([
-            [0, 0],   [1, 10]
-        ]);
+      var data = new google.visualization.DataTable();
+      data.addColumn('datetime', 'Time of Day');
+      data.addColumn('number', 'Motivation Level');
 
-        data.addRows([
-            [80, 100]
-        ]);
+      data.addRows([
+		<% for(var i=0; i < information.length; i++) { %>
+            [new Date("<%= information[i].measurement_timestamp %>"), <%= information[i].temp %>],
+        <% } %>
+      ]);
 
-        var options = {
-            hAxis: {
-            title: 'Time'
-            },
-            vAxis: {
-            title: 'Temperature'
+      var options = {
+        width: 900,
+        height: 500,
+        legend: {position: 'none'},
+        enableInteractivity: false,
+        chartArea: {
+          width: '85%'
+        },
+        hAxis: {
+          viewWindow: {
+            min: new Date(2017, 2, 20, 0),
+            max: new Date(2017, 2, 30, 10)
+          },
+          gridlines: {
+            count: -1,
+            units: {
+              days: {format: ['MMM dd']},
+              hours: {format: ['HH:mm', 'ha']},
             }
-         };
+          },
+          minorGridlines: {
+            units: {
+              hours: {format: ['hh:mm:ss a', 'ha']},
+              minutes: {format: ['HH:mm a Z', ':mm']}
+            }
+          }
+        }
+      };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.LineChart(
+        document.getElementById('chart_div'));
 
+      chart.draw(data, options);
+
+      var button = document.getElementById('change');
+      var isChanged = false;
+
+      button.onclick = function () {
+        if (!isChanged) {
+          options.hAxis.viewWindow.min = new Date(2017, 2, 27, 6);
+          options.hAxis.viewWindow.max = new Date(2017, 2, 27, 10);
+          isChanged = true;
+        } else {
+          options.hAxis.viewWindow.min = new Date(2017, 2, 20, 0),
+          options.hAxis.viewWindow.max = new Date(2017, 2, 30, 10)
+          isChanged = false;
+        }
         chart.draw(data, options);
+      };
     }
+
 }
 </script>
 </body>
