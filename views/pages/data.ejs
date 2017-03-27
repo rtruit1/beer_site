@@ -21,18 +21,16 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Temperature</th>
-                            <th>Date</th>
                             <th>Time</th>
+                            <th>Date</th>
+                            <th>Temperature</th>
                         </tr>
                     </thead>
                     <% for(var i=0; i < information.length; i++) { %>
                         <tr>
-                            <td><%= information[i].Id %></td>
-                            <td><%= information[i].temp %></td>
-                            <td><%= information[i].date %></td>
                             <td><%= information[i].time %></td>
+                            <td><%= information[i].date %></td>
+                            <td><%= information[i].temp %></td>
                         </tr>
                     <% } %>
                 </table>                

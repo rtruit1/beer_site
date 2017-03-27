@@ -47,7 +47,6 @@ app.post('/pages/myaction', function(req, res){
     
     res.render('pages/myaction', info);  
     console.log("First Name: "+req.body.username); 
-    //console.log("Email: "+req.body.password); 
 }); 
 
 
@@ -57,8 +56,21 @@ app.post('/pages/myaction', function(req, res){
 //example of displaying all items from a database
 app.get('/pages/data', function(req, res){ 
    connection.query("SELECT * FROM temps", function(err, rows, fields){
-       
+        var lineGraph = {values: []}; //initialize empty JSON object
+        
+        //iterating through the tuples to grab time, and temp to put send them to the front end for graphing
+        for(i in rows){
+            lineGraph.values.push({
+                'time': rows[i].time, 
+                'temp': rows[i].temp
+            });
+        }
+        //new info
+        //printing the JSON object to see if it entered properly. 
+        console.log(lineGraph);
+
        //this may not be the best practice, but it gets the job done haha 
+       //TODO: change rows to lineGraph so that it can be used with Google Charts 
        global.information = rows; 
         if(!!err){
             console.log("Error executing query"); 
@@ -71,10 +83,6 @@ app.get('/pages/data', function(req, res){
          res.render('pages/data'); 
    });  
 });
-
-
-
-
 
 
 app.listen(3000, function(){
